@@ -14,7 +14,28 @@
 	<script>
 		name_pic=1;
 		total_pic = 8;
-		function t1(o){_pic;
+		function t1(o){
+			var f = "file"+o;//当前被点击的file
+			var thisObj = document.getElementById(f);
+			if (thisObj.files && thisObj.files[0]) {
+				if(thisObj.files.length > 5){
+					alert('不好意思,一次只能选5张');
+					//替换掉当前的input file
+					var input_file_html = "<input type='file' id='file"+o+"'  multiple='multiple' name='img_url[]' onchange='t1("+o+")'/>";
+					$("#file"+o).replaceWith(input_file_html);
+					return false;
+				}
+				if(thisObj.files.length > $("#upload .no-img").length){
+					alert('不好意思,选太多图片了');
+					//替换掉当前的input file
+					var input_file_html = "<input type='file' id='file"+o+"'  multiple='multiple' name='img_url[]' onchange='t1("+o+")'/>";
+					$("#file"+o).replaceWith(input_file_html);
+					return false;
+				}
+				var parent_index = name_pic;
+				var files_obj = thisObj.files;
+				for(var i=1;i<=files_obj.length;i++){
+				    var img="img"+name_pic;
 				    var a_id="#a"+name_pic;
 
 				    var imgObjPreview = document.getElementById(img);
