@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<style>
+		.pro_img{ margin-left:10px;margin-top:10px;width:300px;height: 300px;background-color: #000; --border-radius:999em;  overflow:hidden;float:left; --margin:5% 35%;position: relative;}
+		.pro_img img{ position: absolute;left: 50%;top:50%;   transform: translate(-50%,-50%);width: 100%}
+		.pro_img {position:relative}
+		.pro_img input{position: absolute;width: 100%;height: 100%;margin:0;opacity:0;z-index: 100;}
+		.del_img{position: absolute;left: 0;top: 0;z-index: 120}
+		.deleted-img {display: none !important;}
+		.no-img input:hover{cursor: pointer}
+	</style>
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+	<script>
+		name_pic=1;
+		total_pic = 8;
+		function t1(o){_pic;
+				    var a_id="#a"+name_pic;
+
+				    var imgObjPreview = document.getElementById(img);
+			    	imgObjPreview.src = window.URL.createObjectURL(files_obj[i-1]);
+			    	imgObjPreview.style.display = 'block';
+
+			    	$(a_id).removeClass('no-img');
+			    	$(a_id).prepend('<button onClick="deleteElement('+name_pic+')" class="del_img" type="button">删除</button>');
+
+			    	//有了就不能再点了，只能删除
+					$("#file"+name_pic).hide();
+			        name_pic++;
+				}
+				for (var i = 1; i <= name_pic; i++) {
+					$("#a"+i).show();
+				}
+			}
+		}
+		function deleteElement(a){
+			$("#a"+a).addClass('deleted-img');
+			//先取隐藏删除标签的值
+			var del_img_value = $("#del_img_value").val();
+			if(del_img_value == ""){
+				$("#del_img_value").val(a);
+			}else{
+				$("#del_img_value").val(del_img_value+','+a);
+			}
+			//删掉一个就要加一个新的,在最后面
+			var no_use = $("#a"+total_pic).hasClass('no-img');
+			total_pic++;
+			
+			var a_html = '<a class="pro_img no-img" id="a'+total_pic+'" ';
+			if(no_use){
+				a_html += ' style="display: none;" ';
+			}
+			a_html += '><input type="file" id="file'+total_pic+'" multiple="multiple" name="img_url[]" onchange="t1('+total_pic+')"/>';
+			a_html += '<img src="upload.png" id="img'+total_pic+'"></a>';
+			$("#upload").append(a_html);
+		}
+	</script>
+</head>
+<body>
+	<form action="upload.php" enctype="multipart/form-data" method="post">
+		<input type="hidden" id="del_img_value" name="del_img" value="">
+		<div id='upload'>
+			<a class='pro_img no-img' id='a1' >
+				<input type='file' id='file1'  multiple='multiple' name='img_url[]' onchange='t1(1)'/>
+				<img src='upload.png' id='img1'>
+			</a>
+
+			<a class='pro_img no-img' id='a2' style="display: none;">
+				<input type='file' id='file2'  multiple='multiple' name='img_url[]' onchange='t1(2)'/>
+				<img src='upload.png' id='img2'>
+			</a>
+
+			<a class='pro_img no-img' id='a3' style="display: none;">
+				<input type='file' id='file3'  multiple='multiple' name='img_url[]' onchange='t1(3)'/>
+				<img src='upload.png' id='img3'>
+			</a>
+
+			<a class='pro_img no-img' id='a4' style="display: none;">
+				<input type='file' id='file4'  multiple='multiple' name='img_url[]' onchange='t1(4)'/>
+				<img src='upload.png' id='img4'>
+			</a>
+
+			<a class='pro_img no-img' id='a5' style="display: none;">
+				<input type='file' id='file5'  multiple='multiple' name='img_url[]' onchange='t1(5)'/>
+				<img src='upload.png' id='img5'>
+			</a>
+
+			<a class='pro_img no-img' id='a6' style="display: none;">
+				<input type='file' id='file6'  multiple='multiple' name='img_url[]' onchange='t1(6)'/>
+				<img src='upload.png' id='img6'>
+			</a>
+
+			<a class='pro_img no-img' id='a7' style="display: none;">
+				<input type='file' id='file7'  multiple='multiple' name='img_url[]' onchange='t1(7)'/>
+				<img src='upload.png' id='img7'>
+			</a>
+
+			<a class='pro_img no-img' id='a8' style="display: none;">
+				<input type='file' id='file8'  multiple='multiple' name='img_url[]' onchange='t1(8)'/>
+				<img src='upload.png' id='img8'>
+			</a>
+		</div>
+		<input type='submit' value="上传" />
+	</form>
+</body>
+</html>
